@@ -9,14 +9,16 @@ body {
 .listlollies {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    
+    justify-content: center;    
 }
 
 .listlollies.lollipop {
     height: 300px;
 }
 
+.lolly {
+    margin: 10px;   
+}
 
 .lollyformDiv {
     display: flex;
@@ -44,7 +46,7 @@ body {
     width : 70px;
     height: 70px;
     margin-top: -7px;
-    margin-left: -7px;
+    margin-left: -14px;
 }
 
 .lollyForm {
@@ -53,3 +55,45 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.messageDiv{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+
+    .giftlollyDiv {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        margin-top: auto;
+        padding-top: 25px;              
+    }
+
+    .giftlollyContent {
+        margin: 32px;  
+        height: 50%;     
+    }
+
+    .sentFooter {
+        justify-content: center;
+        text-align: center;
+        padding-top: 30px;
+        font-size: large;
+        color: gray;        
+    }
+    sentFooter a {
+        justify-content: left;
+        text-align: left;
+    }
+    .giftlollyDiv .sharelolly {
+        color: black;
+    } 
+    
+    .sharelolly p {
+        color: crimson;
+        font-style: italic;
+    }

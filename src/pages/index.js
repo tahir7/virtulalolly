@@ -11,15 +11,15 @@ export default function Home() {
    <Header />
      <div className='listlollies'>
    
-        <div>
+        <div className='lolly'>
             <Lolly fillLollyTop="#d52358" fillLollyMiddle="#e95946" fillLollyBottom="#deaa43"  />
         </div>
 
-        <div>
+        <div className='lolly'>
           <Lolly fillLollyTop='black' fillLollyMiddle='white' fillLollyBottom='blue'/>
         </div>
 
-        <div>
+        <div className='lolly'>
           <Lolly fillLollyTop='purple' fillLollyMiddle='red' fillLollyBottom='blue'/>
         </div>
   </div>

@@ -3,9 +3,18 @@ import  Header  from '../component/Header'
 import Lolly from "../component/Lolly"
 import { gql, useQuery, useMutation} from '@apollo/client'
 
-const Get_Lolly = gql `{
-    hello
-}`
+
+const GetLollies = gql `{      
+    getAllLollies      { 
+                    recipientName
+                    message
+                    senderName 
+                    flavourTop
+                    flavourMiddle 
+                    flavourBottom 
+                    lollyPath 
+            }
+    }`;
 
 const createLollyMutation = gql`
     mutation createLolly($recipientName : String!, $message : String!, $senderName : String!, $flavourTop : String!, $flavourMiddle : String!, $flavourBottom : String! ) {
@@ -26,37 +35,53 @@ export default function CreateNew() {
     const messageRef = useRef();
     const senderRef = useRef();
 
-    const {loading, error, data} = useQuery(Get_Lolly);
+    const  {loading, error, data} = useQuery(GetLollies);
+    console.log("All Lollies data  ....  ", data)
+
     const [createLolly] = useMutation(createLollyMutation);
     
+     function seeLollies() {
+       
+        // console.log("All Lollies data  ....  ", data)
+    
+        // JSON.stringify(data)      
+    }
 
 
     const submitLollyForm = async() => {
-        console.log('form');
-        console.log('color 1  ', color1)
-        console.log('senderRef  ', senderRef.current.value);
+        var result;
+        console.log('----------  submitLollyForm  --------------- ');
+        try {
+                result = await createLolly( 
+                    {  
+                    variables : {
+                        recipientName: recipientNameRef.current.value, 
+                        message : messageRef.current.value,
+                        senderName : senderRef.current.value,
+                        flavourTop : color1, 
+                        flavourMiddle : color2,
+                        flavourBottom : color3,
+                    } 
+                }
+                );
+         } catch(error) {
+                console.log('submitLollyForm ......  ', error )
+         }
+        
+        console.log('result ', result)        
 
-        const result = await createLolly( 
-            {  
-            variables : {
-                recipientName: recipientNameRef.current.value, 
-                message : messageRef.current.value,
-                senderName : senderRef.current.value,
-                flavourTop : color1, 
-                flavourMiddle : color2,
-                flavourBottom : color3
-            }
-        }
-        );
-
-        console.log('result ', result)
+        recipientNameRef.current.value ='' 
+        messageRef.current.value = ''
+        senderRef.current.value = ''
+        
+        // await navigate(`/lollies/${result.data.createLolly.lollyPath}`);
     }
 
-    return (
+   
+    return ( 
     
-    <div className='container'>
+    <div className='container'> 
 
-        {console.log('data...  ' ,  {data})}
     <Header />
         <div className = 'lollyformDiv'> 
             <div>
@@ -94,6 +119,10 @@ export default function CreateNew() {
                 </label>
                 <input type='text' name='from' id='from'  ref={senderRef}/>  
                 <input type='button' onClick={submitLollyForm}  value='Create' />            
+                <input type='button' onClick={seeLollies}  value='All Lollies' />  
+
+                {/* { {JSON.stringify(data)} */}
+                
             </div>
         </div>
 
