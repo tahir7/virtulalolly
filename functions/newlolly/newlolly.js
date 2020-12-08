@@ -2,6 +2,7 @@ const { ApolloServer, gql } = require('apollo-server-lambda')
 const faunadb = require('faunadb')
 const q = faunadb.query;
 const shortid = require('shortid')
+require('dotenv').config();
 
 
 const typeDefs = gql`
@@ -30,15 +31,15 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     hello: (root, args, context) => {
-      console.log(' -------------- Hello -----------------------  ');
+      console.log(' -------------- Hello -----------------------  ', process.env.FAUNADB_ADMIN_SECRET);
          return 'Hello, Lollypop!'
     }, 
     
     getAllLollies : async(root, args, context) => {
 
       console.log('getAllLollies  ');
-      
-         const client = new faunadb.Client({'secret' : 'fnAD61-NQjACA2hs1xp7B-hcs9l52c1rPJaV104i'});
+      console.log('process.env.FAUNADB_ADMIN_SECRET ', process.env.FAUNADB_ADMIN_SECRET)
+         const client = new faunadb.Client({'secret' : process.env.FAUNADB_ADMIN_SECRET});
          console.log('------- Connected ----------------- ')
       
 
@@ -68,12 +69,13 @@ const resolvers = {
     },
 
     getLollyBySlug : async(_, {slug}) => {
+      console.log('process.env.FAUNADB_ADMIN_SECRET ', process.env.FAUNADB_ADMIN_SECRET)
       console.log('========getLollyBySlug ========',  {slug})
       console.log('========getLollyBySlug ========',  slug)
       try {
         var client;
         try {
-         client = new faunadb.Client({'secret' : 'fnAD61-NQjACA2hs1xp7B-hcs9l52c1rPJaV104i'});
+         client = new faunadb.Client({'secret' : process.env.FAUNADB_ADMIN_SECRET});
          console.log('========  getLollyBySlug -Connected ========== ');
         } catch(error) {
           console.log('client... error ===== ',  error)
@@ -99,7 +101,7 @@ const resolvers = {
 
         console.log(args);
 
-        const client = new faunadb.Client({'secret' : 'fnAD61-NQjACA2hs1xp7B-hcs9l52c1rPJaV104i'});
+        const client = new faunadb.Client({'secret' : process.env.FAUNADB_ADMIN_SECRET});
         const id = shortid.generate();
         args.lollyPath = id;
 
