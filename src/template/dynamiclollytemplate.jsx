@@ -20,9 +20,12 @@ export const query = graphql `
     }
 `
 
+const isBrowser = () => typeof window !== "undefined";
 
 
 const dynamiclollyTemplate = ({
+
+    
     // console.log('lollydata ........  ' , lollydata);
     // const {location, pageContext } = lollydata;
 
@@ -48,7 +51,7 @@ const dynamiclollyTemplate = ({
                 <div className='messageDiv'>
                     <span className='sharelolly'>
                         Your lolly is freezing. Share it with this link: <br/>
-                        <p> {window.location.origin}/lollies/{getLollyBySlug.lollyPath} </p> 
+                        {/* <p> {window.location.origin}/lollies/{getLollyBySlug.lollyPath} </p>  */}
                     </span>
                     <div className='giftlollyContent'>
                         <h2> {getLollyBySlug.recipientName}</h2>
@@ -65,8 +68,11 @@ const dynamiclollyTemplate = ({
                
                 {getLollyBySlug.senderName} made this virtual lollipop for you. You can make your own to send to a friend who 
                 <br/> deserve some sugary treat which won't rot their teeth...
-                 <a href= {window.location.origin +'/CreateNew'}> Create Virtual Lolly for me</a> <br/>
-                 <a href= {window.location.origin}> Home </a> 
+                 {/* <a href= {window.location.origin +'/CreateNew'}> Create Virtual Lolly for me</a> <br/>
+                 <a href= {window.location.origin}> Home </a>  */}
+
+                {/* <a href= {`{${isBrowser() ? location.origin : ""}` +'/CreateNew'}> Create Virtual Lolly for me</a> <br/>
+                 <a href= {`{${isBrowser() ? location.origin : ""}`}> Home </a>  */}
             </div>
 
         
